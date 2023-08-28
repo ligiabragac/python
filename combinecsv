@@ -1,0 +1,34 @@
+pip install pandas
+
+import os
+import pandas as pd
+
+# Path to the directory containing your CSV files
+csv_directory = "/path/to/your/desktop/csv/files/"
+
+# List to store dataframes from each CSV
+dataframes = []
+
+# Loop through each CSV file in the directory
+for filename in os.listdir(csv_directory):
+    if filename.endswith(".csv"):
+        file_path = os.path.join(csv_directory, filename)
+        print(f"Reading {file_path}")
+        df = pd.read_csv(file_path)
+        dataframes.append(df)
+
+#printing step by step to be sure everything is working fine
+print("All CSV files read.")
+
+# Combine all dataframes into a single dataframe
+combined_df = pd.concat(dataframes, ignore_index=True)
+
+print("Dataframes combined.")
+
+# Path to save the combined CSV file
+output_path = "/path/to/your/desktop/combined_data.csv"
+
+# Save the combined data frame as a CSV file
+combined_df.to_csv(output_path, index=False)
+
+print(f"Combined data saved to {output_path}.")
